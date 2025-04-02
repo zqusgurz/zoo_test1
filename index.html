@@ -66,14 +66,14 @@
 
         messageForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const btnText = document.getElementById('buttonTitle').value || 'ㅎㄷㄷㄷ';
+            const btnText = document.getElementById('buttonTitle').value || 'you';
 
             Kakao.Link.sendDefault({
                 objectType: 'text',
-                text: 'ㅎㄷㄷㄷ',
+                text: 'ㄷㄷㄷㄷㄷ',
                 link: {
-                    mobileWebUrl: 'https://pf.kakao.com/_xcxbMPn/chat?apiVer=1.2&intentId=67ecdcc82de50f137bfe0ae2?welcome=true',
-                    webUrl: 'https://pf.kakao.com/_xcxbMPn/chat?apiVer=1.2&intentId=67ecdcc82de50f137bfe0ae2?welcome=true'
+                    mobileWebUrl: 'https://pf.kakao.com/_xcxbMPn/chat?apiVer=1.0&intentId=67edcdc82de50f137bfe0ae2',
+                    webUrl: 'https://pf.kakao.com/_xcxbMPn/chat?apiVer=1.0&intentId=67edcdc82de50f137bfe0ae2'
                 },
                 buttonTitle: btnText
             });
