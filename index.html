@@ -19,13 +19,24 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h4>🐒 나는 원숭이다 버튼</h4>
-        <form id="messageForm">
+
+        <form id="initForm">
             <div class="form-group">
+                <input type="text" id="appKey" class="form-control" placeholder="카카오 JavaScript 앱 키 입력">
+            </div>
+            <button type="submit" class="btn btn-success btn-block">초기화</button>
+        </form>
+
+        <form id="messageForm" class="hidden">
+            <div class="form-group mt-3">
                 <input type="text" id="buttonTitle" class="form-control" placeholder="버튼에 표시될 텍스트">
             </div>
             <button type="submit" id="sendBtn" class="btn btn-warning btn-block">카톡으로 보내기</button>
@@ -34,10 +45,24 @@
 
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
-        Kakao.init('98f7f23f2a8ab07d65d5f9fefe9b31b9'); // ← 여기에 자신의 JavaScript 키 입력 (카카오 디벨로퍼스에서 발급)
-
+        const initForm = document.getElementById('initForm');
         const messageForm = document.getElementById('messageForm');
-        const sendBtn = document.getElementById('sendBtn');
+
+        initForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const appKey = document.getElementById('appKey').value.trim();
+
+            if (!appKey) return alert('앱 키를 입력해 주세요!');
+            Kakao.init(appKey);
+
+            if (Kakao.isInitialized()) {
+                alert('카카오 SDK 초기화 완료!');
+                messageForm.classList.remove('hidden');
+                initForm.classList.add('hidden');
+            } else {
+                alert('초기화 실패! 앱 키 확인해 주세요.');
+            }
+        });
 
         messageForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -47,8 +72,8 @@
                 objectType: 'text',
                 text: '나는 원숭이다 🐒',
                 link: {
-                    mobileWebUrl: 'https://jaehong-hwang.github.io', // 실제 원하는 링크로 수정
-                    webUrl: 'https://jaehong-hwang.github.io'
+                    mobileWebUrl: location.href,
+                    webUrl: location.href
                 },
                 buttonTitle: btnText
             });
